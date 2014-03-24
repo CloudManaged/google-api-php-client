@@ -57,8 +57,15 @@ class Google_IO_Curl extends Google_IO_Abstract
     curl_setopt($curl, CURLOPT_CUSTOMREQUEST, $request->getRequestMethod());
     curl_setopt($curl, CURLOPT_USERAGENT, $request->getUserAgent());
 
+    if (CHARLES) {
+      curl_setopt($curl, CURLOPT_PROXY, CHARLES);
+      curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+    } else {
+      curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, true);
+    }
+
     curl_setopt($curl, CURLOPT_FOLLOWLOCATION, false);
-    curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, true);
+    
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($curl, CURLOPT_HEADER, true);
 
